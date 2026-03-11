@@ -1,10 +1,12 @@
 import { test, expect } from '@playwright/test';
+import * as allure from "allure-js-commons";
 
 test('has title', async ({ page }) => {
   await page.goto('https://playwright.dev/');
 
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Playwright/);
+  await allure.attachment('playwrightHomepage', await page.screenshot(), 'image/png');
 });
 
 test('get started link', async ({ page }) => {
@@ -15,4 +17,6 @@ test('get started link', async ({ page }) => {
 
   // Expects page to have a heading with the name of Installation.
   await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+    await allure.attachment('playwrightInstallation', await page.screenshot(), 'image/png');
+
 });

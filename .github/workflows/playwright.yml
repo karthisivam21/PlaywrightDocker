@@ -19,42 +19,23 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Setup Node
-      uses: actions/setup-node@v4
-      with:
-              node-version: 20
-
-    - name: Install dependencies
-      run: npm ci
-
-    - name: Install browsers
-      run: npx playwright install --with-deps
-
-    - name: Install Allure reporter
-      run: 
-        npm install -D allure-playwright
-
-    - name: Run tests
-      run: 
-          mkdir -p allure-results
-          mkdir -p allure-report
-          npx playwright test --reporter=line,allure-playwright || true
-
-    - name: Upload Allure results
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-          name: allure-results
-          path: allure-results
-
+    - name: Build & Run docker compose 
+      run: docker compose up --build --abort-on-container-exit 
+      
+    - name: Upload allure results 
+      uses: actions/upload-artifact@v4 
+      with: 
+        name: allure-results 
+        path: allure-results 
+    
     - name: Generate Allure report 
       uses: simple-elf/allure-report-action@v1.7 
       with: 
         allure_results: allure-results 
         allure_report: allure-report 
-
+        
     - name: Upload Allure report 
       uses: actions/upload-artifact@v4 
       with: 
-       name: allure-report 
-       path: allure-report
+        name: allure-report 
+        path: allure-report 

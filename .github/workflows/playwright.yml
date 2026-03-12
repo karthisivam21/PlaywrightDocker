@@ -37,6 +37,7 @@ jobs:
     - name: Run tests
       run: 
           mkdir -p allure-results
+          mkdir -p allure-report
           npx playwright test --reporter=line,allure-playwright || true
 
     - name: Upload Allure results
@@ -51,6 +52,7 @@ jobs:
       with: 
         allure_results: allure-results 
         allure_report: allure-report 
+
     - name: Upload Allure report 
       uses: actions/upload-artifact@v4 
       with: 

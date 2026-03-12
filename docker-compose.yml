@@ -8,6 +8,7 @@ services:
 
     volumes:
       - .:/app
+      - /app/node_modules
       - ./allure-results:/app/allure-results
 
     environment:
@@ -31,3 +32,6 @@ services:
       CHECK_RESULTS_EVERY_SECONDS: 2
       KEEP_HISTORY: 0
 
+    volumes:
+      - ./allure-results:/app/allure-results
+      - ./allure-report:/app/default-reports

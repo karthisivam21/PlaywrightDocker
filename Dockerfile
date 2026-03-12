@@ -10,6 +10,4 @@ COPY . .
 
 RUN npx playwright install --with-deps
 
-RUN npm install -D allure-playwright
-
-CMD ["npx","playwright","test","--reporter=line,allure-playwright"]
+CMD ["npm","test","--","--reporter=line,allure-playwright"]

@@ -16,6 +16,8 @@ services:
 
     command: >
       sh -c "
+      npm ci &&
+      npx playwright install --with-deps &&
       mkdir -p /app/allure-results &&
       npx playwright test --reporter=line,allure-playwright
       "
@@ -34,4 +36,6 @@ services:
 
     volumes:
       - ./allure-results:/app/allure-results
-      - ./allure-report:/app/default-reports
+
+    depends_on:
+      - playwright

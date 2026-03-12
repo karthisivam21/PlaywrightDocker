@@ -9,5 +9,3 @@ RUN npm ci
 COPY . .
 
 RUN npx playwright install --with-deps
-
-CMD ["npm","test","--","--reporter=line,allure-playwright"]

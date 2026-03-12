@@ -31,10 +31,11 @@ jobs:
       run: npx playwright install --with-deps
 
     - name: Install Allure reporter
-      run: npm install -D allure-playwright
+      run: 
+        npm install -D allure-playwright
 
     - name: Run tests
-      run: |
+      run: 
           mkdir -p allure-results
           npx playwright test --reporter=line,allure-playwright || true
 
@@ -45,3 +46,13 @@ jobs:
           name: allure-results
           path: allure-results
 
+    - name: Generate Allure report 
+      uses: simple-elf/allure-report-action@v1.7 
+      with: 
+        allure_results: allure-results 
+        allure_report: allure-report 
+    - name: Upload Allure report 
+      uses: actions/upload-artifact@v4 
+      with: 
+       name: allure-report 
+       path: allure-report
